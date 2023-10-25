@@ -1,0 +1,30 @@
+from matplotlib import pyplotimport numpy as np
+
+f=open('data.txt', 'r')
+a=f.read().split()
+f.close()
+
+f=open('set.txt', 'r')
+b=f.read().split()
+f.close()
+
+t=[0]
+dt=0.011
+
+for i in range(len(a)):
+    a[i]=int(a[i])/255*3.3    if i>=1:
+        t.append(t[i-1]+dt)
+
+pyplot.plot(t, a, color='blue', label='V(t)', linestyle='--', linewidth=0.5, marker='o', markersize=5, markerfacecolor='white', markevery=25)pyplot.xticks(np.arange(min(t), 10.1, 2))
+pyplot.yticks(np.arange(0, 3.6, 0.5))
+pyplot.title('Процесс заряда и разряда конденсатора \n в RC-цепочке')
+pyplot.xlabel('Время, с')
+pyplot.ylabel('Напряжение, В')
+pyplot.text(6.1, 2.3, 'Время заряда = 4.21 с')
+pyplot.text(6.1, 2.1, 'Время разряда = 5.65 c')
+pyplot.legend()
+pyplot.minorticks_on()
+pyplot.grid(which='major', color='gray', linestyle='-')
+pyplot.grid(which='minor', color='blue', linestyle=':')
+pyplot.savefig('v(t).svg')
+pyplot.show()
